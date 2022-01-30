@@ -18,4 +18,18 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin", // custom sigin page
   },
+  callbacks: {
+    async session({ session, token, user }) {
+      // Customize the session object, object we get back on login
+      // we can attach more things to the session
+      session.user.name = session.user.name
+        .split(" ")
+        .join("")
+        .toLocaleLowerCase(); // Taibu Haroub => taibuharoub
+
+      session.user.uid = token.sub;
+
+      return session;
+    },
+  },
 });
