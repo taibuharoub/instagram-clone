@@ -9,16 +9,21 @@ import {
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Header() {
   const { data: session, status } = useSession();
+  const router = useRouter();
   console.log(status);
   return (
     <header className="shadow-md border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
         {/* left side  */}
         {/* when using fill, make the parnet container relative */}
-        <div className="relative hidden lg:inline-grid w-24 cursor-pointer">
+        <div
+          onClick={() => router.push("/")}
+          className="relative hidden lg:inline-grid w-24 cursor-pointer"
+        >
           <Image
             src="https://links.papareact.com/ocw"
             layout="fill"
@@ -29,7 +34,10 @@ function Header() {
 
         {/* will do the opposite of the above */}
         {/* flex-shrink-0 => don't make the smaller as the screen shrinks keep it at specified size */}
-        <div className="relative w-10 lg:hidden flex-shrink-0 cursor-pointer">
+        <div
+          onClick={() => router.push("/")}
+          className="relative w-10 lg:hidden flex-shrink-0 cursor-pointer"
+        >
           <Image
             src="https://links.papareact.com/jjm"
             layout="fill"
@@ -56,7 +64,7 @@ function Header() {
 
         {/* right side */}
         <div className="flex items-center justify-end space-x-4">
-          <HomeIcon className="nav-btn" />
+          <HomeIcon onClick={() => router.push("/")} className="nav-btn" />
           <MenuIcon className="h-10 md:hidden cursor-pointer" />
 
           {session ? (
